@@ -66,6 +66,24 @@
       margin-top: 50px;
     }
 
+    .results-row {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .results-row p {
+      flex: 1 1 320px;
+    }
+
+    .results-row img {
+      flex: 1 1 280px;
+      width: auto;
+      max-width: 100%;
+      margin-top: 0;
+    }
+
     footer {
       text-align: center;
       margin-top: 70px;
@@ -141,14 +159,18 @@ modifying the underlying policy architecture.
   <div class="section">
     <h2>Results</h2>
 
-    <p>
-      We evaluate InfiNoVA across four real-world manipulation tasks,
-      measuring policy success rate under unseen, randomized camera
-      viewpoints at test time. Policies trained with InfiNoVA achieve
-      5.4&times; higher average success under these unseen viewpoints
-      compared to both VISTA-based augmentation and an unaugmented
-      baseline policy.
-    </p>
+    <div class="results-row">
+      <p>
+        We evaluate InfiNoVA across four real-world manipulation tasks,
+        measuring policy success rate under unseen, randomized camera
+        viewpoints at test time. Policies trained with InfiNoVA achieve
+        5.4&times; higher average success under these unseen viewpoints
+        compared to both VISTA-based augmentation and an unaugmented
+        baseline policy.
+      </p>
+
+      <img src="assets/success_rate_plot.svg" alt="Success rate comparison plot">
+    </div>
 
     <p>
       Notably, InfiNoVA also outperforms policies trained directly on
