@@ -99,6 +99,32 @@
       margin-top: 0;
     }
 
+    .compare-grid {
+      display: grid;
+      grid-template-columns: auto repeat(3, 1fr);
+      gap: 10px;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .compare-grid .col-header {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .compare-grid .row-label {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-align: center;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .compare-grid video {
+      width: 100%;
+      margin-top: 0;
+    }
+
     footer {
       text-align: center;
       margin-top: 70px;
@@ -211,19 +237,19 @@ modifying the underlying policy architecture.
 
     <div class="gif-row">
       <div style="flex: 1 1 0; max-width: 48%;">
-        <video controls style="max-width: 100%; height: auto; margin-top: 0;">
+        <video autoplay muted loop playsinline controls style="max-width: 100%; height: auto; margin-top: 0;">
           <source src="assets/icra_trimmed_videos/base_origview.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
-        <p style="text-align: center; margin-top: 8px;">Training view</p>
+        <p style="text-align: center; margin-top: 8px;">Base policy on Training view</p>
       </div>
 
       <div style="flex: 1 1 0; max-width: 48%;">
-        <video controls style="max-width: 100%; height: auto; margin-top: 0;">
+        <video autoplay muted loop playsinline controls style="max-width: 100%; height: auto; margin-top: 0;">
           <source src="assets/icra_trimmed_videos/base_randview.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
-        <p style="text-align: center; margin-top: 8px;">Random test view</p>
+        <p style="text-align: center; margin-top: 8px;">Base policy on Random test view</p>
       </div>
     </div>
 
@@ -236,6 +262,28 @@ modifying the underlying policy architecture.
       sensitive standard VLA policies are to the camera viewpoint used
       at test time.
     </p>
+
+    <div class="compare-grid">
+      <div></div>
+      <div class="col-header">Base policy</div>
+      <div class="col-header">VISTA policy</div>
+      <div class="col-header">InfiNoVA policy</div>
+
+      <div class="row-label">Random view 1</div>
+      <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/base_randview.mp4" type="video/mp4"></video>
+      <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/vista_pp1.mp4" type="video/mp4"></video>
+      <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/infinova_pp1.mp4" type="video/mp4"></video>
+
+      <div class="row-label">Random view 2</div>
+      <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/base_pp2.mp4" type="video/mp4"></video>
+      <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/vista_pp2.mp4" type="video/mp4"></video>
+      <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/infinova_pp2.mp4" type="video/mp4"></video>
+
+      <div class="row-label">Random view 3</div>
+      <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/base_pp3.mp4" type="video/mp4"></video>
+      <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/vista_pp3.mp4" type="video/mp4"></video>
+      <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/infinova_pp3.mp4" type="video/mp4"></video>
+    </div>
   </div>
 
   <div class="section">
