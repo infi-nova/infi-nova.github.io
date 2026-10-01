@@ -284,10 +284,73 @@ modifying the underlying policy architecture.
       <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/vista_pp3.mp4" type="video/mp4"></video>
       <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/infinova_pp3.mp4" type="video/mp4"></video>
     </div>
+
+    <p>
+      Across all three randomized viewpoints, the base policy and the
+      policy trained on VISTA-augmented data exhibit severe degradation
+      in task success, frequently failing to localize or grasp the target
+      object once the camera pose deviates from the training
+      distribution. This indicates that both baselines overfit to the
+      specific viewpoint statistics seen during training rather than
+      learning a viewpoint-invariant visuomotor representation. In
+      contrast, the policy trained on InfiNoVA-augmented data maintains
+      substantially higher task success across all three unseen
+      viewpoints, demonstrating improved generalization to out-of-
+      distribution camera poses. These results suggest that augmenting
+      training data with geometrically consistent novel views induces a
+      policy representation that is considerably more robust to
+      viewpoint shift at deployment time.
+    </p>
+
+    <div class="gif-row" style="margin-top: 30px;">
+      <div style="flex: 1 1 0; max-width: 23%;">
+        <video autoplay muted loop playsinline controls style="margin-top: 0;">
+          <source src="assets/icra_trimmed_videos/infinova_pp1.mp4" type="video/mp4">
+        </video>
+        <p style="text-align: center; margin-top: 8px;">Pick&amp;Place</p>
+      </div>
+
+      <div style="flex: 1 1 0; max-width: 23%;">
+        <video autoplay muted loop playsinline controls style="margin-top: 0;">
+          <source src="assets/icra_trimmed_videos/infinova_stack1.mp4" type="video/mp4">
+        </video>
+        <p style="text-align: center; margin-top: 8px;">Stack</p>
+      </div>
+
+      <div style="flex: 1 1 0; max-width: 23%;">
+        <video autoplay muted loop playsinline controls style="margin-top: 0;">
+          <source src="assets/icra_trimmed_videos/infinova_sweep1.mp4" type="video/mp4">
+        </video>
+        <p style="text-align: center; margin-top: 8px;">Sweep</p>
+      </div>
+
+      <div style="flex: 1 1 0; max-width: 23%;">
+        <video autoplay muted loop playsinline controls style="margin-top: 0;">
+          <source src="assets/icra_trimmed_videos/infinova_sort1.mp4" type="video/mp4">
+        </video>
+        <p style="text-align: center; margin-top: 8px;">Sort</p>
+      </div>
+    </div>
+
+    <p>
+      We further evaluate policies trained on InfiNoVA-augmented data
+      across four distinct manipulation tasks: Pick&amp;Place, Stack,
+      Sweep, and Sort. In each case, the InfiNoVA policy continues to
+      perform well even when the evaluation camera pose is randomized,
+      substantially outperforming the baseline and VISTA-augmented
+      policies under the same viewpoint shift. Quantitative success
+      rates for all four tasks are reported in the Results section below.
+    </p>
   </div>
 
   <div class="section">
     <h2>Results</h2>
+
+    <p>
+      For each of the four manipulation tasks, we evaluate every policy
+      over 100 episodes with the test-time camera pose randomized on
+      each episode, and report the resulting task success rate.
+    </p>
 
     <div class="results-row">
       <p>
@@ -301,6 +364,20 @@ modifying the underlying policy architecture.
 
       <img src="assets/success_rate_plot.svg" alt="Success rate comparison plot">
     </div>
+
+    <p>
+      Across all four tasks, the unaugmented baseline and the
+      VISTA-augmented policy both collapse under randomized viewpoints,
+      achieving only 5&ndash;12% success, well below the reference success
+      rate obtained when the baseline is instead evaluated from its
+      original training viewpoint (52&ndash;76%). This confirms that the
+      failure under viewpoint shift is not due to task difficulty, but to
+      poor generalization across camera poses. The policy trained on
+      InfiNoVA-augmented data is far more robust to this shift, reaching
+      38&ndash;44% success across Pick&amp;Place, Stack, Sweep, and Sort,
+      consistently several times higher than both baselines under the
+      same randomized-viewpoint evaluation.
+    </p>
 
     <p>
       Notably, InfiNoVA also outperforms policies trained directly on
