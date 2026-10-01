@@ -80,7 +80,8 @@
   <h1>InfiNoVA</h1>
 
   <div class="subtitle">
-    Your Full Paper Title Goes Here
+    ∞ Novel View Augmentation for Viewpoint Invariant Robot
+Policies
   </div>
 
   <div class="authors">
@@ -100,7 +101,30 @@
   <div class="section">
     <h2>Abstract</h2>
     <p>
-      Paste your paper abstract here.
+      Vision-Language-Action (VLA) policies often rely
+strongly on the camera viewpoints seen during training, causing
+substantial performance degradation when deployed from un-
+seen perspectives. Collecting demonstrations from sufficiently
+diverse physical viewpoints is expensive and still provides
+only sparse coverage of the viewpoint space. We introduce
+InfiNoVA, a data-augmentation framework that converts syn-
+chronized multi-camera demonstrations into a dense distri-
+bution of geometrically consistent training views. InfiNoVA
+reconstructs each manipulation trajectory as a time-varying 3D
+Gaussian representation and renders novel observations from
+sampled camera poses while preserving the original state–action
+correspondence. This explicit scene representation improves
+frame-level fidelity and temporal consistency while reducing
+task-critical hallucinations observed in generative novel-view
+synthesis. Across four real-world manipulation tasks, policies
+trained with InfiNoVA achieve 5.4× higher average success
+under unseen randomized viewpoints than both VISTA-based
+augmentation and the unaugmented policy. InfiNoVA further
+achieves 1.7× higher success than training directly on all
+five physical camera views. These results show that dense,
+geometrically grounded viewpoint augmentation provides a
+practical route toward camera-robust robot policies without
+modifying the underlying policy architecture.
     </p>
   </div>
 
