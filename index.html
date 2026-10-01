@@ -149,11 +149,46 @@ modifying the underlying policy architecture.
   <div class="section">
     <h2>Method</h2>
 
-    <p>
-      Describe your InfiNoVA method here.
-    </p>
 
     <img src="assets/teaser.svg" alt="InfiNoVA method overview" style="max-width: 100%; height: auto;">
+
+    <p>
+      InfiNoVA takes synchronized multi-camera robot demonstrations and
+      reconstructs each manipulation trajectory as a time-varying 3D
+      Gaussian scene representation. From this explicit geometric model,
+      new camera viewpoints are sampled and rendered into additional
+      training observations, while the original state&ndash;action labels
+      from the demonstration are preserved unchanged. Because rendering is
+      grounded in explicit 3D geometry rather than generative synthesis,
+      the resulting views maintain high frame-level fidelity and temporal
+      consistency, avoiding the task-relevant hallucinations that can
+      arise from purely generative view-synthesis approaches. The
+      resulting dense set of geometrically consistent viewpoints is then
+      used to train policies that are more robust to unseen camera
+      placements at deployment time.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Novel View Rendering</h2>
+
+    <p>
+      Qualitative examples of novel views rendered from the learned 3D
+      Gaussian scene representation can be added here.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Robot Experiments</h2>
+
+    <p>
+      Videos and qualitative results can be added here.
+    </p>
+
+    <video controls style="max-width: 100%; height: auto;">
+      <source src="assets/robot_demo.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   </div>
 
   <div class="section">
@@ -179,19 +214,6 @@ modifying the underlying policy architecture.
       can be more effective than simply collecting more real camera
       coverage.
     </p>
-  </div>
-
-  <div class="section">
-    <h2>Robot Experiments</h2>
-
-    <p>
-      Videos and qualitative results can be added here.
-    </p>
-
-    <video controls style="max-width: 100%; height: auto;">
-      <source src="assets/robot_demo.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
   </div>
 
   <div class="section">
