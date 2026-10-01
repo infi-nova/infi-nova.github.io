@@ -84,6 +84,21 @@
       margin-top: 0;
     }
 
+    .gif-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .gif-row img {
+      flex: 1 1 0;
+      width: 100%;
+      min-width: 150px;
+      max-width: 19%;
+      margin-top: 0;
+    }
+
     footer {
       text-align: center;
       margin-top: 70px;
@@ -172,9 +187,22 @@ modifying the underlying policy architecture.
   <div class="section">
     <h2>Novel View Rendering</h2>
 
+    <div class="gif-row">
+      <img src="assets/cam1.gif" alt="Novel view rendering from camera 1">
+      <img src="assets/cam2.gif" alt="Novel view rendering from camera 2">
+      <img src="assets/cam.gif" alt="Novel view rendering from original camera">
+      <img src="assets/cam3.gif" alt="Novel view rendering from camera 3">
+      <img src="assets/cam4.gif" alt="Novel view rendering from camera 4">
+    </div>
+
     <p>
-      Qualitative examples of novel views rendered from the learned 3D
-      Gaussian scene representation can be added here.
+      Each clip above shows the same manipulation trajectory rendered
+      from a different camera viewpoint using InfiNoVA's 3D Gaussian
+      scene representation. The robot, objects, and motion stay sharp
+      and consistent across all viewpoints, even ones never seen by a
+      physical camera during data collection. This shows that the
+      rendered views are realistic and reliable enough to be used as
+      additional training data for the robot's policy.
     </p>
   </div>
 
