@@ -418,6 +418,30 @@ modifying the underlying policy architecture.
       training data.
     </p>
 
+    <p>
+      Rendering time is also an important practical consideration for
+      scaling augmentation to large demonstration datasets. GLD produces
+      visually competitive renderings but is substantially slower to
+      render than InfiNoVA, making it considerably less practical for
+      generating the large volume of synthetic viewpoints required for
+      policy training. InfiNoVA's explicit 3D Gaussian representation
+      allows novel views to be rendered efficiently, making it a more
+      scalable choice for producing dense viewpoint augmentation across
+      full demonstration datasets.
+    </p>
+
+    <p>
+      A further practical limitation of DepthSplat and GLD is that both
+      are pose-dependent methods, requiring an explicit target camera
+      pose as input to condition the rendering process. In contrast,
+      InfiNoVA, along with Hunyuan and VISTA, is pose-free, directly
+      synthesizing novel views without requiring the target viewpoint to
+      be known or specified beforehand. This pose-free property makes
+      InfiNoVA better suited to augmentation pipelines where diverse
+      novel viewpoints must be generated without manually specifying
+      camera poses for every rendered view.
+    </p>
+
     <script>
       (function () {
         document.querySelectorAll('.rq-slider-container').forEach(function (container) {
