@@ -66,6 +66,39 @@
       margin-top: 50px;
     }
 
+    .data-table {
+      width: 100%;
+      max-width: 600px;
+      margin: 20px auto 0;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .data-table caption {
+      caption-side: bottom;
+      font-size: 13px;
+      color: #666;
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    .data-table th,
+    .data-table td {
+      border: 1px solid #ddd;
+      padding: 8px 12px;
+      text-align: center;
+    }
+
+    .data-table th {
+      background: #f5f5f5;
+      font-weight: bold;
+    }
+
+    .data-table td:first-child,
+    .data-table th:first-child {
+      text-align: left;
+    }
+
     .results-row {
       display: flex;
       align-items: center;
@@ -428,6 +461,33 @@ modifying the underlying policy architecture.
       allows novel views to be rendered efficiently, making it a more
       scalable choice for producing dense viewpoint augmentation across
       full demonstration datasets.
+    </p>
+
+    <table class="data-table">
+      <caption>Novel-view synthesis time comparison, in seconds (reconstruction + rendering).</caption>
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>GLD</th>
+          <th>VISTA</th>
+          <th>InfiNoVA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Pick-and-Place</td><td>25615</td><td>1115</td><td>318</td></tr>
+        <tr><td>Sweep</td><td>35119</td><td>1529</td><td>437</td></tr>
+        <tr><td>Sort</td><td>39026</td><td>1693</td><td>434</td></tr>
+        <tr><td>Stack</td><td>45056</td><td>1961</td><td>560</td></tr>
+        <tr><td><strong>Average / episode</strong></td><td><strong>36204</strong></td><td><strong>1575</strong></td><td><strong>437</strong></td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      Averaged across tasks, InfiNoVA is approximately 3.6&times; faster
+      than VISTA and 82.8&times; faster than GLD, while also providing
+      higher rendering fidelity and temporal consistency, making it the
+      strongest quality&ndash;efficiency trade-off among the evaluated
+      methods.
     </p>
 
     <p>
