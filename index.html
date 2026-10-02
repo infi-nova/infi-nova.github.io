@@ -109,15 +109,24 @@
 
     .slider-compare-row {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
       gap: 24px;
       margin-top: 20px;
+      justify-content: center;
     }
 
     .slider-compare-block {
-      width: 100%;
+      flex: 1 1 320px;
+      max-width: 460px;
+    }
+
+    .slider-compare-row.single-row {
       max-width: 600px;
-      margin: 0 auto;
+      margin: 24px auto 0;
+    }
+
+    .slider-compare-row.single-row .slider-compare-block {
+      max-width: 600px;
     }
 
     .slider-compare-block .block-caption {
@@ -374,7 +383,9 @@ modifying the underlying policy architecture.
         </div>
         <p class="block-caption">VISTA</p>
       </div>
+    </div>
 
+    <div class="slider-compare-row single-row">
       <div class="slider-compare-block">
         <div class="slider-compare rq-slider-container">
           <img src="assets/figures/GT/ep78_f42.png" alt="Ground truth image">
@@ -388,6 +399,24 @@ modifying the underlying policy architecture.
         <p class="block-caption">InfiNoVA (Ours)</p>
       </div>
     </div>
+
+    <p>
+      Compared to generative and depth-based baselines such as Hunyuan,
+      DepthSplat, GLD, and VISTA, novel views rendered by InfiNoVA show
+      noticeably higher frame-level fidelity to the ground-truth
+      observation, with sharper object boundaries and fewer structural
+      artifacts around the robot arm and manipulated objects. Several
+      baselines introduce visible hallucinations or geometric distortion
+      in task-relevant regions when rendering from a shifted viewpoint,
+      which is especially problematic since these are exactly the
+      regions a downstream policy must attend to. Because InfiNoVA
+      renders from an explicit, time-varying 3D Gaussian reconstruction
+      of the scene rather than synthesizing pixels generatively, it
+      better preserves scene geometry and temporal consistency across
+      frames, which is consistent with the substantially higher
+      downstream policy success rates reported for InfiNoVA-augmented
+      training data.
+    </p>
 
     <script>
       (function () {
