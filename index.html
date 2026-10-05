@@ -463,24 +463,144 @@ modifying the underlying policy architecture.
       full demonstration datasets.
     </p>
 
-    <table class="data-table">
-      <caption>Novel-view synthesis time comparison, in seconds (reconstruction + rendering).</caption>
-      <thead>
-        <tr>
-          <th>Task</th>
-          <th>GLD</th>
-          <th>VISTA</th>
-          <th>InfiNoVA</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Pick-and-Place</td><td>25615</td><td>1115</td><td>318</td></tr>
-        <tr><td>Sweep</td><td>35119</td><td>1529</td><td>437</td></tr>
-        <tr><td>Sort</td><td>39026</td><td>1693</td><td>434</td></tr>
-        <tr><td>Stack</td><td>45056</td><td>1961</td><td>560</td></tr>
-        <tr><td><strong>Average / episode</strong></td><td><strong>36204</strong></td><td><strong>1575</strong></td><td><strong>437</strong></td></tr>
-      </tbody>
-    </table>
+    <div class="viz-root timing-chart">
+      <style>
+        .timing-chart {
+          --surface-1: #fcfcfb;
+          --text-primary: #0b0b0b;
+          --text-secondary: #52514e;
+          --text-muted: #898781;
+          --gridline: #e1e0d9;
+          --baseline: #c3c2b7;
+          --series-1: #2a78d6;
+          --series-2: #eb6834;
+          --series-3: #1baf7a;
+          max-width: 760px;
+          margin: 20px auto 0;
+          background: var(--surface-1);
+        }
+        .timing-chart .chart-legend {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+          margin-bottom: 8px;
+          font-size: 13px;
+          color: var(--text-secondary);
+        }
+        .timing-chart .chart-legend span {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+        }
+        .timing-chart .legend-swatch {
+          width: 10px;
+          height: 10px;
+          border-radius: 2px;
+          display: inline-block;
+        }
+        .timing-chart svg {
+          width: 100%;
+          height: auto;
+          display: block;
+          overflow: visible;
+        }
+        .timing-chart .bar-group rect {
+          cursor: pointer;
+        }
+        .timing-chart .axis-label {
+          font-size: 11px;
+          fill: var(--text-muted);
+        }
+        .timing-chart .cat-label {
+          font-size: 12px;
+          fill: var(--text-primary);
+        }
+        .timing-chart .gridline {
+          stroke: var(--gridline);
+          stroke-width: 1;
+        }
+        .timing-chart .baseline {
+          stroke: var(--baseline);
+          stroke-width: 1;
+        }
+        .timing-chart figcaption {
+          font-size: 13px;
+          color: var(--text-secondary);
+          text-align: center;
+          margin-top: 8px;
+        }
+        .timing-chart .chart-tooltip {
+          position: absolute;
+          pointer-events: none;
+          background: var(--text-primary);
+          color: #fff;
+          font-size: 12px;
+          padding: 4px 8px;
+          border-radius: 4px;
+          opacity: 0;
+          transform: translate(-50%, -100%);
+          white-space: nowrap;
+          transition: opacity 0.1s;
+          z-index: 10;
+        }
+        .timing-chart .chart-wrap {
+          position: relative;
+        }
+        .timing-chart .toggle-table {
+          display: block;
+          margin: 10px auto 0;
+          font-size: 12px;
+          color: var(--text-secondary);
+          background: none;
+          border: 1px solid var(--baseline);
+          border-radius: 4px;
+          padding: 4px 10px;
+          cursor: pointer;
+        }
+        .timing-chart .data-table {
+          display: none;
+          margin-top: 14px;
+        }
+        .timing-chart .data-table.visible {
+          display: table;
+        }
+      </style>
+
+      <figure style="margin:0;">
+        <div class="chart-legend">
+          <span><span class="legend-swatch" style="background:var(--series-1);"></span>GLD</span>
+          <span><span class="legend-swatch" style="background:var(--series-2);"></span>VISTA</span>
+          <span><span class="legend-swatch" style="background:var(--series-3);"></span>InfiNoVA</span>
+        </div>
+        <div class="chart-wrap">
+          <svg id="timing-svg" viewBox="0 0 720 360" role="img" aria-label="Novel-view synthesis time comparison, in seconds, log scale">
+          </svg>
+          <div class="chart-tooltip" id="timing-tooltip"></div>
+        </div>
+        <figcaption>Novel-view synthesis time comparison, in seconds (reconstruction + rendering); log scale.</figcaption>
+      </figure>
+
+      <button class="toggle-table" id="timing-toggle-table">Show as table</button>
+
+      <table class="data-table" id="timing-table">
+        <caption>Novel-view synthesis time comparison, in seconds (reconstruction + rendering).</caption>
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>GLD</th>
+            <th>VISTA</th>
+            <th>InfiNoVA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Pick-and-Place</td><td>25615</td><td>1115</td><td>318</td></tr>
+          <tr><td>Sweep</td><td>35119</td><td>1529</td><td>437</td></tr>
+          <tr><td>Sort</td><td>39026</td><td>1693</td><td>434</td></tr>
+          <tr><td>Stack</td><td>45056</td><td>1961</td><td>560</td></tr>
+          <tr><td><strong>Average / episode</strong></td><td><strong>36204</strong></td><td><strong>1575</strong></td><td><strong>437</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
 
     <p>
       Averaged across tasks, InfiNoVA is approximately 3.6&times; faster
@@ -503,6 +623,100 @@ modifying the underlying policy architecture.
     </p>
 
     <script>
+      (function () {
+        const data = [
+          { task: 'Pick-and-Place', gld: 25615, vista: 1115, infinova: 318 },
+          { task: 'Sweep', gld: 35119, vista: 1529, infinova: 437 },
+          { task: 'Sort', gld: 39026, vista: 1693, infinova: 434 },
+          { task: 'Stack', gld: 45056, vista: 1961, infinova: 560 },
+          { task: 'Average / episode', gld: 36204, vista: 1575, infinova: 437 },
+        ];
+        const seriesKeys = ['gld', 'vista', 'infinova'];
+        const seriesColors = {
+          gld: 'var(--series-1)',
+          vista: 'var(--series-2)',
+          infinova: 'var(--series-3)',
+        };
+        const seriesNames = { gld: 'GLD', vista: 'VISTA', infinova: 'InfiNoVA' };
+
+        const svg = document.getElementById('timing-svg');
+        const tooltip = document.getElementById('timing-tooltip');
+        const wrap = svg.closest('.chart-wrap');
+        if (!svg) return;
+
+        const W = 720, H = 360;
+        const marginLeft = 56, marginRight = 16, marginTop = 16, marginBottom = 56;
+        const plotW = W - marginLeft - marginRight;
+        const plotH = H - marginTop - marginBottom;
+
+        const yMin = 100, yMax = 50000;
+        function yScale(v) {
+          const t = (Math.log10(v) - Math.log10(yMin)) / (Math.log10(yMax) - Math.log10(yMin));
+          return marginTop + plotH * (1 - t);
+        }
+
+        const ticks = [100, 1000, 10000, 50000];
+        let svgContent = '';
+
+        ticks.forEach(function (t) {
+          const y = yScale(t);
+          svgContent += '<line class="gridline" x1="' + marginLeft + '" x2="' + (W - marginRight) + '" y1="' + y + '" y2="' + y + '" />';
+          svgContent += '<text class="axis-label" x="' + (marginLeft - 8) + '" y="' + (y + 4) + '" text-anchor="end">' + t.toLocaleString() + '</text>';
+        });
+
+        svgContent += '<line class="baseline" x1="' + marginLeft + '" x2="' + (W - marginRight) + '" y1="' + yScale(yMin) + '" y2="' + yScale(yMin) + '" />';
+
+        const groupW = plotW / data.length;
+        const barGap = 4;
+        const barW = (groupW - barGap * (seriesKeys.length + 1)) / seriesKeys.length;
+
+        data.forEach(function (d, i) {
+          const groupX = marginLeft + i * groupW;
+          svgContent += '<g class="bar-group">';
+          seriesKeys.forEach(function (key, j) {
+            const val = d[key];
+            const barX = groupX + barGap + j * (barW + barGap);
+            const barY = yScale(val);
+            const barH = yScale(yMin) - barY;
+            svgContent += '<rect data-task="' + d.task + '" data-series="' + seriesNames[key] + '" data-value="' + val +
+              '" x="' + barX + '" y="' + barY + '" width="' + barW + '" height="' + Math.max(barH, 0) +
+              '" rx="3" fill="' + seriesColors[key] + '" />';
+          });
+          svgContent += '</g>';
+          svgContent += '<text class="cat-label" x="' + (groupX + groupW / 2) + '" y="' + (H - marginBottom + 20) +
+            '" text-anchor="middle">' + d.task.replace(' / ', ' /​') + '</text>';
+        });
+
+        svg.innerHTML = svgContent;
+
+        svg.querySelectorAll('rect').forEach(function (rect) {
+          rect.addEventListener('mouseenter', function (e) {
+            const task = rect.getAttribute('data-task');
+            const series = rect.getAttribute('data-series');
+            const value = Number(rect.getAttribute('data-value')).toLocaleString();
+            tooltip.textContent = task + ' – ' + series + ': ' + value + 's';
+            tooltip.style.opacity = '1';
+          });
+          rect.addEventListener('mousemove', function (e) {
+            const wrapRect = wrap.getBoundingClientRect();
+            tooltip.style.left = (e.clientX - wrapRect.left) + 'px';
+            tooltip.style.top = (e.clientY - wrapRect.top - 8) + 'px';
+          });
+          rect.addEventListener('mouseleave', function () {
+            tooltip.style.opacity = '0';
+          });
+        });
+
+        const toggleBtn = document.getElementById('timing-toggle-table');
+        const table = document.getElementById('timing-table');
+        const figure = svg.closest('figure');
+        toggleBtn.addEventListener('click', function () {
+          const showing = table.classList.toggle('visible');
+          figure.style.display = showing ? 'none' : '';
+          toggleBtn.textContent = showing ? 'Show as chart' : 'Show as table';
+        });
+      })();
+
       (function () {
         document.querySelectorAll('.rq-slider-container').forEach(function (container) {
           const topWrap = container.querySelector('.top-image-wrap');
