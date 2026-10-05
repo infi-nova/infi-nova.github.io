@@ -806,18 +806,13 @@ modifying the underlying policy architecture.
       <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/infinova_pp1.mp4" type="video/mp4"></video>
 
       <div class="row-label">Random view 2</div>
-      <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/base_pp2.mp4" type="video/mp4"></video>
-      <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/vista_pp2.mp4" type="video/mp4"></video>
-      <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/infinova_pp2.mp4" type="video/mp4"></video>
-
-      <div class="row-label">Random view 3</div>
       <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/base_pp3.mp4" type="video/mp4"></video>
       <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/vista_pp3.mp4" type="video/mp4"></video>
       <video autoplay muted loop playsinline controls><source src="assets/icra_trimmed_videos/infinova_pp3.mp4" type="video/mp4"></video>
     </div>
 
     <p>
-      Across all three randomized viewpoints, the base policy and the
+      Across both randomized viewpoints, the base policy and the
       policy trained on VISTA-augmented data exhibit severe degradation
       in task success, frequently failing to localize or grasp the target
       object once the camera pose deviates from the training
@@ -825,7 +820,7 @@ modifying the underlying policy architecture.
       specific viewpoint statistics seen during training rather than
       learning a viewpoint-invariant visuomotor representation. In
       contrast, the policy trained on InfiNoVA-augmented data maintains
-      substantially higher task success across all three unseen
+      substantially higher task success across both unseen
       viewpoints, demonstrating improved generalization to out-of-
       distribution camera poses. These results suggest that augmenting
       training data with geometrically consistent novel views induces a
