@@ -118,7 +118,7 @@
     .results-row img {
       flex: 1 1 280px;
       width: auto;
-      max-width: 340px;
+      max-width: 480px;
       margin-top: 0;
     }
 
@@ -143,124 +143,6 @@
       gap: 10px;
       align-items: center;
       margin-top: 20px;
-    }
-
-    .slider-compare-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
-      margin-top: 20px;
-      justify-content: center;
-    }
-
-    .slider-compare-block {
-      flex: 1 1 320px;
-      max-width: 460px;
-    }
-
-    .slider-compare-row.single-row {
-      max-width: 600px;
-      margin: 24px auto 0;
-    }
-
-    .slider-compare-row.single-row .slider-compare-block {
-      max-width: 600px;
-    }
-
-    .slider-compare-block .block-caption {
-      text-align: center;
-      font-size: 13px;
-      margin-top: 6px;
-    }
-
-    .slider-compare {
-      position: relative;
-      width: 100%;
-      margin: 0;
-      user-select: none;
-      overflow: hidden;
-      border-radius: 8px;
-    }
-
-    .slider-compare img {
-      display: block;
-      width: 100%;
-      margin-top: 0;
-      border-radius: 0;
-      user-select: none;
-      pointer-events: none;
-    }
-
-    .slider-compare .top-image-wrap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 50%;
-      overflow: hidden;
-    }
-
-    .slider-compare .top-image-wrap img {
-      width: var(--slider-img-width, 600px);
-      max-width: none;
-    }
-
-    .slider-compare .slider-handle {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      -webkit-appearance: none;
-      appearance: none;
-      background: transparent;
-      cursor: ew-resize;
-      transform: translateX(-50%);
-    }
-
-    .slider-compare .slider-handle::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 4px;
-      height: 100%;
-      background: #fff;
-      box-shadow: 0 0 4px rgba(0,0,0,0.6);
-      cursor: ew-resize;
-    }
-
-    .slider-compare .slider-handle::-moz-range-thumb {
-      width: 4px;
-      height: 100%;
-      background: #fff;
-      box-shadow: 0 0 4px rgba(0,0,0,0.6);
-      cursor: ew-resize;
-      border: none;
-    }
-
-    .slider-compare .slider-handle::-webkit-slider-runnable-track {
-      background: transparent;
-    }
-
-    .slider-compare .onimage-label {
-      position: absolute;
-      top: 6px;
-      z-index: 2;
-      font-size: 11px;
-      font-weight: bold;
-      color: #fff;
-      background: rgba(0, 0, 0, 0.55);
-      padding: 2px 6px;
-      border-radius: 4px;
-      pointer-events: none;
-    }
-
-    .slider-compare .onimage-label.label-left {
-      left: 6px;
-    }
-
-    .slider-compare .onimage-label.label-right {
-      right: 6px;
     }
 
     .multi-slider {
@@ -460,75 +342,6 @@ modifying the underlying policy architecture.
       <div class="ms-layer" data-key="gt" style="width:100%;"><img src="assets/figures/GT/ep78_f42.png" alt="Ground truth image"></div>
     </div>
     <p class="multi-slider-caption">Drag any divider to reveal Hunyuan, DepthSplat, GLD, VISTA, InfiNoVA, and Ground Truth side by side in a single frame.</p>
-
-    <div class="slider-compare-row">
-      <div class="slider-compare-block">
-        <div class="slider-compare rq-slider-container">
-          <img src="assets/figures/GT/ep78_f42.png" alt="Ground truth image">
-          <div class="top-image-wrap">
-            <img src="assets/figures/Hunyuan/ep78_f42.png" alt="Hunyuan rendered image">
-          </div>
-          <div class="onimage-label label-left">Hunyuan</div>
-          <div class="onimage-label label-right">GT</div>
-          <input type="range" min="0" max="100" value="50" class="slider-handle" aria-label="Comparison slider">
-        </div>
-        <p class="block-caption">Hunyuan</p>
-      </div>
-
-      <div class="slider-compare-block">
-        <div class="slider-compare rq-slider-container">
-          <img src="assets/figures/GT/ep78_f42.png" alt="Ground truth image">
-          <div class="top-image-wrap">
-            <img src="assets/figures/depthsplat/pp_nv.png" alt="DepthSplat rendered image">
-          </div>
-          <div class="onimage-label label-left">DepthSplat</div>
-          <div class="onimage-label label-right">GT</div>
-          <input type="range" min="0" max="100" value="50" class="slider-handle" aria-label="Comparison slider">
-        </div>
-        <p class="block-caption">DepthSplat</p>
-      </div>
-
-      <div class="slider-compare-block">
-        <div class="slider-compare rq-slider-container">
-          <img src="assets/figures/GT/ep78_f42.png" alt="Ground truth image">
-          <div class="top-image-wrap">
-            <img src="assets/figures/GLD/pp_e0f0_gld.png" alt="GLD rendered image">
-          </div>
-          <div class="onimage-label label-left">GLD</div>
-          <div class="onimage-label label-right">GT</div>
-          <input type="range" min="0" max="100" value="50" class="slider-handle" aria-label="Comparison slider">
-        </div>
-        <p class="block-caption">GLD</p>
-      </div>
-
-      <div class="slider-compare-block">
-        <div class="slider-compare rq-slider-container">
-          <img src="assets/figures/GT/ep78_f42.png" alt="Ground truth image">
-          <div class="top-image-wrap">
-            <img src="assets/figures/VISTA/ep78_f42_vista.png" alt="VISTA rendered image">
-          </div>
-          <div class="onimage-label label-left">VISTA</div>
-          <div class="onimage-label label-right">GT</div>
-          <input type="range" min="0" max="100" value="50" class="slider-handle" aria-label="Comparison slider">
-        </div>
-        <p class="block-caption">VISTA</p>
-      </div>
-    </div>
-
-    <div class="slider-compare-row single-row">
-      <div class="slider-compare-block">
-        <div class="slider-compare rq-slider-container">
-          <img src="assets/figures/GT/ep78_f42.png" alt="Ground truth image">
-          <div class="top-image-wrap">
-            <img src="assets/figures/Ours/ep78_f42.png" alt="InfiNoVA rendered image">
-          </div>
-          <div class="onimage-label label-left">InfiNoVA</div>
-          <div class="onimage-label label-right">GT</div>
-          <input type="range" min="0" max="100" value="50" class="slider-handle" aria-label="Comparison slider">
-        </div>
-        <p class="block-caption">InfiNoVA (Ours)</p>
-      </div>
-    </div>
 
     <p>
       Compared to generative and depth-based baselines such as Hunyuan,
@@ -922,27 +735,6 @@ modifying the underlying policy architecture.
         render();
       })();
 
-      (function () {
-        document.querySelectorAll('.rq-slider-container').forEach(function (container) {
-          const topWrap = container.querySelector('.top-image-wrap');
-          const topImg = topWrap.querySelector('img');
-          const slider = container.querySelector('.slider-handle');
-
-          function sync() {
-            const w = container.clientWidth;
-            topImg.style.width = w + 'px';
-          }
-
-          function update() {
-            topWrap.style.width = slider.value + '%';
-          }
-
-          window.addEventListener('resize', sync);
-          slider.addEventListener('input', update);
-          sync();
-          update();
-        });
-      })();
     </script>
   </div>
 
