@@ -106,9 +106,10 @@
 
     .results-row {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 30px;
       flex-wrap: wrap;
+      margin-top: 8px;
     }
 
     .results-row p {
@@ -145,71 +146,92 @@
       margin-top: 20px;
     }
 
-    .multi-slider {
-      position: relative;
-      width: 100%;
-      max-width: 900px;
-      margin: 24px auto 0;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-      border-radius: 8px;
-      user-select: none;
-      background: #000;
+    .slider-compare-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 20px;
     }
 
-    .multi-slider .ms-layer {
+    .slider-compare-block .block-caption {
+      text-align: center;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .slider-compare {
+      position: relative;
+      width: 100%;
+      margin: 0;
+      user-select: none;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .slider-compare img {
+      display: block;
+      width: 100%;
+      margin-top: 0;
+      border-radius: 0;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .slider-compare .top-image-wrap {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
       height: 100%;
+      width: 50%;
       overflow: hidden;
     }
 
-    .multi-slider .ms-layer img {
-      display: block;
-      position: absolute;
-      top: 0;
-      height: 100%;
-      width: auto;
+    .slider-compare .top-image-wrap img {
+      width: var(--slider-img-width, 600px);
       max-width: none;
-      pointer-events: none;
-      user-select: none;
     }
 
-    .multi-slider .ms-handle {
+    .slider-compare .slider-handle {
       position: absolute;
       top: 0;
+      left: 50%;
+      width: 100%;
       height: 100%;
-      width: 0;
-      z-index: 5;
+      margin: 0;
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+      cursor: ew-resize;
+      transform: translateX(-50%);
     }
 
-    .multi-slider .ms-handle::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -1px;
-      width: 2px;
+    .slider-compare .slider-handle::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 4px;
       height: 100%;
       background: #fff;
       box-shadow: 0 0 4px rgba(0,0,0,0.6);
-      pointer-events: none;
-    }
-
-    .multi-slider .ms-handle-hit {
-      position: absolute;
-      top: 0;
-      left: -10px;
-      width: 20px;
-      height: 100%;
       cursor: ew-resize;
     }
 
-    .multi-slider .ms-label {
+    .slider-compare .slider-handle::-moz-range-thumb {
+      width: 4px;
+      height: 100%;
+      background: #fff;
+      box-shadow: 0 0 4px rgba(0,0,0,0.6);
+      cursor: ew-resize;
+      border: none;
+    }
+
+    .slider-compare .slider-handle::-webkit-slider-runnable-track {
+      background: transparent;
+    }
+
+    .slider-compare .onimage-label {
       position: absolute;
       top: 6px;
-      z-index: 6;
+      z-index: 2;
       font-size: 11px;
       font-weight: bold;
       color: #fff;
@@ -217,14 +239,14 @@
       padding: 2px 6px;
       border-radius: 4px;
       pointer-events: none;
-      white-space: nowrap;
     }
 
-    .multi-slider-caption {
-      text-align: center;
-      font-size: 13px;
-      color: #666;
-      margin-top: 8px;
+    .slider-compare .onimage-label.label-left {
+      left: 6px;
+    }
+
+    .slider-compare .onimage-label.label-right {
+      right: 6px;
     }
 
     .compare-grid .col-header {
@@ -333,15 +355,85 @@ modifying the underlying policy architecture.
   <div class="section">
     <h2>Rendering Quality</h2>
 
-    <div class="multi-slider" id="ms-compare" data-order="hunyuan,depthsplat,gld,vista,ours,gt" data-labels="Hunyuan,DepthSplat,GLD,VISTA,InfiNoVA,GT">
-      <div class="ms-layer" data-key="hunyuan" style="width:100%;"><img src="assets/figures/Hunyuan/ep78_f42.png" alt="Hunyuan rendered image"></div>
-      <div class="ms-layer" data-key="depthsplat" style="width:100%;"><img src="assets/figures/depthsplat/pp_nv.png" alt="DepthSplat rendered image"></div>
-      <div class="ms-layer" data-key="gld" style="width:100%;"><img src="assets/figures/GLD/pp_e0f0_gld.png" alt="GLD rendered image"></div>
-      <div class="ms-layer" data-key="vista" style="width:100%;"><img src="assets/figures/VISTA/ep78_f42_vista.png" alt="VISTA rendered image"></div>
-      <div class="ms-layer" data-key="ours" style="width:100%;"><img src="assets/figures/Ours/ep78_f42.png" alt="InfiNoVA rendered image"></div>
-      <div class="ms-layer" data-key="gt" style="width:100%;"><img src="assets/figures/GT/ep78_f42.png" alt="Ground truth image"></div>
+    <div class="slider-compare-grid">
+      <div class="slider-compare-block">
+        <div class="slider-compare rq-slider-container">
+          <img src="assets/figures/GT/ep78_f42.png" alt="Ground truth image">
+          <div class="top-image-wrap">
+            <img src="assets/figures/Hunyuan/ep78_f42.png" alt="Hunyuan rendered image">
+          </div>
+          <div class="onimage-label label-left">Hunyuan</div>
+          <div class="onimage-label label-right">GT</div>
+          <input type="range" min="0" max="100" value="50" class="slider-handle" aria-label="Comparison slider">
+        </div>
+        <p class="block-caption">Hunyuan</p>
+      </div>
+
+      <div class="slider-compare-block">
+        <div class="slider-compare rq-slider-container">
+          <img src="assets/figures/GT/ep78_f42.png" alt="Ground truth image">
+          <div class="top-image-wrap">
+            <img src="assets/figures/depthsplat/pp_nv.png" alt="DepthSplat rendered image">
+          </div>
+          <div class="onimage-label label-left">DepthSplat</div>
+          <div class="onimage-label label-right">GT</div>
+          <input type="range" min="0" max="100" value="50" class="slider-handle" aria-label="Comparison slider">
+        </div>
+        <p class="block-caption">DepthSplat</p>
+      </div>
+
+      <div class="slider-compare-block">
+        <div class="slider-compare rq-slider-container">
+          <img src="assets/figures/GT/ep78_f42.png" alt="Ground truth image">
+          <div class="top-image-wrap">
+            <img src="assets/figures/GLD/pp_e0f0_gld.png" alt="GLD rendered image">
+          </div>
+          <div class="onimage-label label-left">GLD</div>
+          <div class="onimage-label label-right">GT</div>
+          <input type="range" min="0" max="100" value="50" class="slider-handle" aria-label="Comparison slider">
+        </div>
+        <p class="block-caption">GLD</p>
+      </div>
+
+      <div class="slider-compare-block">
+        <div class="slider-compare rq-slider-container">
+          <img src="assets/figures/GT/ep78_f42.png" alt="Ground truth image">
+          <div class="top-image-wrap">
+            <img src="assets/figures/VISTA/ep78_f42_vista.png" alt="VISTA rendered image">
+          </div>
+          <div class="onimage-label label-left">VISTA</div>
+          <div class="onimage-label label-right">GT</div>
+          <input type="range" min="0" max="100" value="50" class="slider-handle" aria-label="Comparison slider">
+        </div>
+        <p class="block-caption">VISTA</p>
+      </div>
+
+      <div class="slider-compare-block">
+        <div class="slider-compare rq-slider-container">
+          <img src="assets/figures/GT/ep78_f42.png" alt="Ground truth image">
+          <div class="top-image-wrap">
+            <img src="assets/figures/Ours/ep78_f42.png" alt="InfiNoVA rendered image">
+          </div>
+          <div class="onimage-label label-left">InfiNoVA</div>
+          <div class="onimage-label label-right">GT</div>
+          <input type="range" min="0" max="100" value="50" class="slider-handle" aria-label="Comparison slider">
+        </div>
+        <p class="block-caption">InfiNoVA (Ours)</p>
+      </div>
+
+      <div class="slider-compare-block">
+        <div class="slider-compare rq-slider-container">
+          <img src="assets/figures/VISTA/ep78_f42_vista.png" alt="VISTA rendered image">
+          <div class="top-image-wrap">
+            <img src="assets/figures/Ours/ep78_f42.png" alt="InfiNoVA rendered image">
+          </div>
+          <div class="onimage-label label-left">InfiNoVA</div>
+          <div class="onimage-label label-right">VISTA</div>
+          <input type="range" min="0" max="100" value="50" class="slider-handle" aria-label="Comparison slider">
+        </div>
+        <p class="block-caption">InfiNoVA (Ours) vs VISTA</p>
+      </div>
     </div>
-    <p class="multi-slider-caption">Drag any divider to reveal Hunyuan, DepthSplat, GLD, VISTA, InfiNoVA, and Ground Truth side by side in a single frame.</p>
 
     <p>
       Compared to generative and depth-based baselines such as Hunyuan,
@@ -628,113 +720,26 @@ modifying the underlying policy architecture.
       })();
 
       (function () {
-        const msRoot = document.getElementById('ms-compare');
-        if (!msRoot) return;
+        document.querySelectorAll('.rq-slider-container').forEach(function (container) {
+          const topWrap = container.querySelector('.top-image-wrap');
+          const topImg = topWrap.querySelector('img');
+          const slider = container.querySelector('.slider-handle');
 
-        const order = msRoot.dataset.order.split(',');
-        const labels = msRoot.dataset.labels.split(',');
-        const layers = order.map(function (key) {
-          return msRoot.querySelector('.ms-layer[data-key="' + key + '"]');
+          function sync() {
+            const w = container.clientWidth;
+            topImg.style.width = w + 'px';
+          }
+
+          function update() {
+            topWrap.style.width = slider.value + '%';
+          }
+
+          window.addEventListener('resize', sync);
+          slider.addEventListener('input', update);
+          sync();
+          update();
         });
-
-        const n = order.length;
-        let boundaries = [];
-        for (let i = 1; i < n; i++) {
-          boundaries.push((i / n) * 100);
-        }
-
-        const handles = [];
-        for (let i = 0; i < n - 1; i++) {
-          const handle = document.createElement('div');
-          handle.className = 'ms-handle';
-          const hit = document.createElement('div');
-          hit.className = 'ms-handle-hit';
-          handle.appendChild(hit);
-          msRoot.appendChild(handle);
-          handles.push(handle);
-        }
-
-        order.forEach(function (key, i) {
-          const label = document.createElement('div');
-          label.className = 'ms-label';
-          label.textContent = labels[i];
-          msRoot.appendChild(label);
-          layers[i]._label = label;
-        });
-
-        function syncImgWidths() {
-          const rootW = msRoot.clientWidth;
-          layers.forEach(function (layer) {
-            const img = layer.querySelector('img');
-            img.style.width = rootW + 'px';
-            img.style.left = '0px';
-          });
-        }
-
-        function render() {
-          let prev = 0;
-          layers.forEach(function (layer, i) {
-            const end = i < boundaries.length ? boundaries[i] : 100;
-            layer.style.left = prev + '%';
-            layer.style.width = (end - prev) + '%';
-            const img = layer.querySelector('img');
-            img.style.left = (-prev / 100 * msRoot.clientWidth) + 'px';
-            const mid = prev + (end - prev) / 2;
-            layer._label.style.left = 'calc(' + mid + '% - ' + (layer._label.offsetWidth / 2 || 20) + 'px)';
-            prev = end;
-          });
-          handles.forEach(function (handle, i) {
-            handle.style.left = boundaries[i] + '%';
-          });
-        }
-
-        let dragIndex = null;
-
-        function clientXToPercent(clientX) {
-          const rect = msRoot.getBoundingClientRect();
-          return Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
-        }
-
-        function onPointerMove(e) {
-          if (dragIndex === null) return;
-          const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-          let pct = clientXToPercent(clientX);
-          const minB = dragIndex > 0 ? boundaries[dragIndex - 1] + 1 : 0;
-          const maxB = dragIndex < boundaries.length - 1 ? boundaries[dragIndex + 1] - 1 : 100;
-          pct = Math.max(minB, Math.min(maxB, pct));
-          boundaries[dragIndex] = pct;
-          render();
-        }
-
-        function onPointerUp() {
-          dragIndex = null;
-        }
-
-        handles.forEach(function (handle, i) {
-          const hit = handle.querySelector('.ms-handle-hit');
-          hit.addEventListener('mousedown', function (e) {
-            e.preventDefault();
-            dragIndex = i;
-          });
-          hit.addEventListener('touchstart', function (e) {
-            dragIndex = i;
-          }, { passive: true });
-        });
-
-        document.addEventListener('mousemove', onPointerMove);
-        document.addEventListener('touchmove', onPointerMove, { passive: true });
-        document.addEventListener('mouseup', onPointerUp);
-        document.addEventListener('touchend', onPointerUp);
-
-        window.addEventListener('resize', function () {
-          syncImgWidths();
-          render();
-        });
-
-        syncImgWidths();
-        render();
       })();
-
     </script>
   </div>
 
