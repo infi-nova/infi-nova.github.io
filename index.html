@@ -821,20 +821,19 @@ modifying the underlying policy architecture.
     </div>
 
     <p>
-      Across all five randomized viewpoints, the base policy and the
-      policy trained on VISTA-augmented data exhibit severe degradation
-      in task success, frequently failing to localize or grasp the target
-      object once the camera pose deviates from the training
-      distribution. This indicates that both baselines overfit to the
-      specific viewpoint statistics seen during training rather than
-      learning a viewpoint-invariant visuomotor representation. In
-      contrast, the policy trained on InfiNoVA-augmented data maintains
-      substantially higher task success across all five unseen
-      viewpoints, demonstrating improved generalization to out-of-
-      distribution camera poses. These results suggest that augmenting
-      training data with geometrically consistent novel views induces a
-      policy representation that is considerably more robust to
-      viewpoint shift at deployment time.
+      Across all five randomized viewpoints&mdash;spanning Pick&amp;Place,
+      Stack, Sort, and Sweep&mdash;the base policy and the VISTA-augmented
+      policy both exhibit severe degradation, frequently failing to
+      localize or grasp the target object once the camera pose deviates
+      from the training distribution. This indicates that both baselines
+      overfit to the specific viewpoint statistics seen during training
+      rather than learning a viewpoint-invariant visuomotor
+      representation. In contrast, the policy trained on
+      InfiNoVA-augmented data continues to localize, grasp, and
+      manipulate the target objects successfully across every task and
+      viewpoint, showing that its robustness to viewpoint shift
+      generalizes across task types rather than being specific to a
+      single manipulation skill.
     </p>
 
     <div class="gif-row" style="margin-top: 30px;">
