@@ -105,22 +105,14 @@
     }
 
     .results-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 30px;
-      flex-wrap: wrap;
       margin-top: 8px;
     }
 
-    .results-row p {
-      flex: 1 1 320px;
-    }
-
     .results-row img {
-      flex: 1 1 280px;
-      width: auto;
-      max-width: 480px;
-      margin-top: 0;
+      display: block;
+      width: 70%;
+      max-width: 70%;
+      margin: 0 auto 16px;
     }
 
     .gif-row {
@@ -881,6 +873,8 @@ modifying the underlying policy architecture.
     </p>
 
     <div class="results-row">
+      <img src="assets/success_rate_plot.svg" alt="Success rate comparison plot">
+
       <p>
         We evaluate InfiNoVA across four real-world manipulation tasks,
         measuring policy success rate under unseen, randomized camera
@@ -889,8 +883,6 @@ modifying the underlying policy architecture.
         compared to both VISTA-based augmentation and an unaugmented
         baseline policy.
       </p>
-
-      <img src="assets/success_rate_plot.svg" alt="Success rate comparison plot">
     </div>
 
     <p>
